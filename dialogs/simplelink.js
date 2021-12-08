@@ -7,7 +7,7 @@
      * @param {String} url
      * @return {Boolean}
      */
-    function containsScheme (url) {
+    function containsScheme(url) {
         return /^[A-Z]+:/i.test(url);
     }
 
@@ -25,7 +25,7 @@
      * @param {String} str
      * @return {Boolean}
      */
-    function isEmail (str) {
+    function isEmail(str) {
         return /^[A-Z0-9\u00C0-\u00FF._%+-]+@[A-Z0-9\u00C0-\u00FF.-]+\.[A-Z]{2,}$/i.test(str);
     }
 
@@ -36,10 +36,10 @@
             minWidth: 400,
             minHeight: 100,
             resizable: CKEDITOR.DIALOG_RESIZE_NONE,
-            contents:[{
+            contents: [{
                 id: "SimpleLink",
                 label: "SimpleLink",
-                elements:[{
+                elements: [{
                     type: "text",
                     label: editor.lang.simplelink.urlLabel,
                     id: "edp-URL",
@@ -63,6 +63,14 @@
                             }
 
                             this.setValue(href);
+                        }
+
+                        if (!!element.$.dataset.hrefReadonly) {
+                            this.disable();
+                            this.getInputElement().setAttribute(
+                                'title',
+                                editor.lang.simplelink.urlReadonly
+                            );
                         }
                     },
 
@@ -89,7 +97,7 @@
 
                             element.setAttribute("href", href);
 
-                            if(!element.getText()) {
+                            if (!element.getText()) {
                                 element.setText(this.getValue());
                             }
                         }
@@ -118,7 +126,7 @@
                     commit: function (element) {
                         var currentValue = this.getValue();
 
-                        if(currentValue !== "" && currentValue !== null) {
+                        if (currentValue !== "" && currentValue !== null) {
                             element.setText(currentValue);
                         }
                     }
@@ -136,7 +144,7 @@
 
                 if (!element || element.getName() != 'a') {
                     element = editor.document.createElement('a');
-                    element.setAttribute("target","_blank");
+                    element.setAttribute("target", "_blank");
 
                     if (selection) {
                         element.setText(selection.getSelectedText());
