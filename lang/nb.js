@@ -1,13 +1,13 @@
 (function (CKEDITOR) {
-    'use strict';
+  'use strict';
 
-    CKEDITOR.plugins.setLang('simplelink', 'nb', {
-        title: "Sett inn/rediger lenke",
-        urlLabel: "URL eller e-postadresse",
-        urlReadonly: "URL kan ikke endres",
-        displayTextLabel: "Visningstekst",
-        buttonLabel: "Sett inn lenke",
-        missingUrl: "URL kan ikke være blank.",
-    });
-
+  CKEDITOR.plugins.setLang('simplelink', 'nb', {
+    title: 'Sett inn/rediger lenke',
+    urlLabel: 'URL eller e-postadresse',
+    urlReadonly: 'URL kan ikke endres',
+    displayTextLabel: 'Visningstekst',
+    buttonLabel: 'Sett inn lenke',
+    missingUrl: 'URL kan ikke være blank.',
+    invalidUrl: 'URL er ugyldig',
+  });
 })(window.CKEDITOR);
