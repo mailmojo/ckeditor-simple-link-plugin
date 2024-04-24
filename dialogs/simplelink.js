@@ -32,15 +32,19 @@
   }
 
   /**
-   * Validate if a URL is valid.
+   * Validate the URL's domain.
    *
-   * @param {String} msg
+   * @param {String} str
    */
-  const validateURL = (msg) =>
-    CKEDITOR.dialog.validate.regex(
-      /(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]/g,
-      msg
-    );
+  function isValidDomain(str) {
+    if (!URL.canParse(str)) {
+      return false;
+    }
+
+    const url = new URL(str);
+    const domainRegex = /^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,6}$/i;
+    return domainRegex.test(url.hostname);
+  }
 
   CKEDITOR.dialog.add('simplelinkDialog', function (editor) {
     return {
@@ -66,8 +70,12 @@
                 if (emptyMsg !== true) {
                   return emptyMsg;
                 }
+                console.log(this.getValue());
+                if (!isValidDomain(this.getValue())) {
+                  return editor.lang.simplelink.invalidUrl;
+                }
 
-                return validateURL(editor.lang.simplelink.invalidUrl).apply(this);
+                return true;
               },
 
               /**
