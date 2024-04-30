@@ -42,7 +42,7 @@
     }
 
     const url = new URL(str);
-    const domainRegex = /^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,6}$/i;
+    const domainRegex = /^[a-z0-9-.]{1,61}\.[a-z]{2,}$/i;
     return domainRegex.test(url.hostname);
   }
 
