@@ -34,16 +34,21 @@
   /**
    * Validate the URL's domain.
    *
+   * This is a simple check to see if the URL's domain is valid. Using the URL Web API
+   * will also punycode the domain so that we don't need to care about non-ASCII
+   * characters.
+   *
    * @param {String} str
+   * @returns {Boolean}
    */
   function isValidDomain(str) {
-    if (!URL.canParse(str)) {
+    try {
+      const url = new URL(str);
+      const domainRegex = /^[a-z0-9-.]{1,61}\.[a-z]{2,}$/i;
+      return domainRegex.test(url.hostname);
+    } catch {
       return false;
     }
-
-    const url = new URL(str);
-    const domainRegex = /^[a-z0-9-.]{1,61}\.[a-z]{2,}$/i;
-    return domainRegex.test(url.hostname);
   }
 
   CKEDITOR.dialog.add('simplelinkDialog', function (editor) {
@@ -70,7 +75,7 @@
                 if (emptyMsg !== true) {
                   return emptyMsg;
                 }
-                console.log(this.getValue());
+
                 if (!isValidDomain(this.getValue())) {
                   return editor.lang.simplelink.invalidUrl;
                 }
