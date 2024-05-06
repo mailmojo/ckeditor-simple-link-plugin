@@ -43,7 +43,7 @@
    */
   function isValidDomain(str) {
     try {
-      const url = new URL(str);
+      const url = new URL(containsScheme(str) ? str : 'https://' + str);
       const domainRegex = /^[a-z0-9-.]{1,61}\.[a-z]{2,}$/i;
       return domainRegex.test(url.hostname);
     } catch {
@@ -76,7 +76,8 @@
                   return emptyMsg;
                 }
 
-                if (!isValidDomain(this.getValue())) {
+                const value = this.getValue();
+                if (!isEmail(value) && !isValidDomain(value)) {
                   return editor.lang.simplelink.invalidUrl;
                 }
 
@@ -127,7 +128,7 @@
                     if (isEmail(href)) {
                       href = 'mailto:' + href;
                     } else {
-                      href = 'http://' + href;
+                      href = 'https://' + href;
                     }
                   }
 
