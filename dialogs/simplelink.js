@@ -32,16 +32,16 @@
   }
 
   /**
-   * Validate the URL's domain.
+   * Validate the URL.
    *
-   * This is a simple check to see if the URL's domain is valid. Using the URL Web API
-   * will also punycode the domain so that we don't need to care about non-ASCII
+   * This is a simple check to only see if the URL's domain is valid. Using the URL Web
+   * API will also punycode the domain so that we don't need to care about non-ASCII
    * characters.
    *
    * @param {String} str
    * @returns {Boolean}
    */
-  function isValidDomain(str) {
+  function isValidUrl(str) {
     try {
       const url = new URL(containsScheme(str) ? str : 'https://' + str);
       const domainRegex = /^[a-z0-9-.]{1,61}\.[a-z]{2,}$/i;
@@ -77,7 +77,7 @@
                 }
 
                 const value = this.getValue();
-                if (!isEmail(value) && !isValidDomain(value)) {
+                if (!isEmail(value) && !isValidUrl(value)) {
                   return editor.lang.simplelink.invalidUrl;
                 }
 
